@@ -5,23 +5,32 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends Activity {
 
     private KolGenerator kolGenerator;
     Handler handler = new Handler();
+    Button playButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         kolGenerator = new KolGenerator();
+        playButton = (Button)findViewById(R.id.button);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playSoundLikeABoss();
+            }
+        });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+
+    void playSoundLikeABoss() {
         final Thread thread = new Thread(new Runnable() {
             public void run() {
                 kolGenerator.genTone();

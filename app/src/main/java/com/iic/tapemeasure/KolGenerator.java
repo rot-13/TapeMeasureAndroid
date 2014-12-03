@@ -15,7 +15,7 @@ public class KolGenerator {
     private final int sampleRate = 44100;
     private final int numSamples = duration * sampleRate;
     private final double sample[] = new double[numSamples];
-    private final double freqOfTone = 440; // hz
+    private final double freqOfTone = 880; // hz
 
     private final byte generatedSnd[] = new byte[2 * numSamples];
 

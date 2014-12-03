@@ -13,7 +13,9 @@ import android.widget.Button;
 
 import org.apache.commons.logging.Log;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -67,12 +69,30 @@ public class MainActivity extends Activity {
                     for (short s : bytes) {
                         waveForm.AddSample(s);
                     }
+                    Short[] volumes = RMS(bytes);
+                    for (Short s : volumes) {
+                        waveForm.AddVolume(s);
+                    }
+
                     }
                 });
             }
             }
         });
         thread.start();
+    }
+
+    Short[] RMS(short[] samples) {
+        int numSamples = 10;
+        List<Short> results = new ArrayList<Short>();
+        for (int bla = 0; bla < samples.length-numSamples; bla += numSamples) {
+            int sum = 0;
+            for (int i = bla; i < bla+numSamples; i++) {
+                sum += samples[i] * samples[i];
+            }
+            results.add((short) Math.sqrt((float) sum / (float) numSamples));
+        }
+        return results.toArray(new Short[0]);
     }
 
     void getSamples() {

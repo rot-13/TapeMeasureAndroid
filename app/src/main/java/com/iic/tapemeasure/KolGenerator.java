@@ -11,8 +11,8 @@ import android.os.Handler;
  */
 public class KolGenerator {
 
-    private final int duration = 3; // seconds
-    private final int sampleRate = 8000;
+    private final int duration = 1; // seconds
+    private final int sampleRate = 44100;
     private final int numSamples = duration * sampleRate;
     private final double sample[] = new double[numSamples];
     private final double freqOfTone = 440; // hz

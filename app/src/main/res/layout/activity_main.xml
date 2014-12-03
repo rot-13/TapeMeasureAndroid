@@ -10,6 +10,25 @@
         android:layout_height="wrap_content"
         android:text="Play KOL"
         android:id="@+id/button"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Listen to KOL"
+        android:id="@+id/button2"
+        android:layout_below="@+id/button"
         android:layout_centerHorizontal="true" />
+
+    <view
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        class="com.iic.tapemeasure.WaveForm"
+        android:id="@+id/view"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="49dp"
+        android:layout_below="@+id/button2" />
 </RelativeLayout>

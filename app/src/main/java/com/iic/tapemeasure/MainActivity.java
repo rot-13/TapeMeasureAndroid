@@ -48,16 +48,35 @@ public class MainActivity extends Activity {
     }
 
     void listenToSoundLikeABoss() {
+        listenButton.setEnabled(false);
         int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
-        int bufferSize = AudioRecord.getMinBufferSize(44100, AudioFormat.CHANNEL_IN_MONO, audioFormat) * 10;
-        AudioRecord record = new AudioRecord(MediaRecorder.AudioSource.MIC, 44100, AudioFormat.CHANNEL_IN_MONO, audioFormat, bufferSize);
-        short bytes[] = new short[bufferSize / 2];
+        final int bufferSize = AudioRecord.getMinBufferSize(44100, AudioFormat.CHANNEL_IN_MONO, audioFormat);
+        final AudioRecord record = new AudioRecord(MediaRecorder.AudioSource.MIC, 44100, AudioFormat.CHANNEL_IN_MONO, audioFormat, bufferSize);
+        final short bytes[] = new short[bufferSize / 2];
         record.startRecording();
-        record.read(bytes, 0, bufferSize / 2);
 
-        for (short s : bytes) {
-            waveForm.AddSample(s);
-        }
+        getSamples();
+        final Thread thread = new Thread(new Runnable() {
+            public void run() {
+            while (true) {
+                record.read(bytes, 0, bufferSize / 2);
+
+                handler.post(new Runnable() {
+
+                    public void run() {
+                    for (short s : bytes) {
+                        waveForm.AddSample(s);
+                    }
+                    }
+                });
+            }
+            }
+        });
+        thread.start();
+    }
+
+    void getSamples() {
+        // read
     }
 
     void playSoundLikeABoss() {
